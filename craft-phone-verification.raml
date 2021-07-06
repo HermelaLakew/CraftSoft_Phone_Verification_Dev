@@ -1,0 +1,82 @@
+#%RAML 1.0
+title: phone-verification
+securitySchemes:
+  basic:
+    type: Basic Authentication
+    displayName: Basic Authentication
+    description:  API only works with basic authentication
+protocols: [HTTP]
+description: NumVerify offers a full-featured yet simple RESTful JSON API for national and international phone number validation and information lookup for a total of 232 countries around the world.
+documentation:
+  - title: NUM VERIFY API
+    content: See the below documentation for reference
+     https://numverify.com/documentation
+
+types:
+  apiresponse:
+    properties:
+       valid: boolean
+       number: string
+       local_format: string
+       international_format: string
+       country_prefix: string
+       country_code: string
+       country_name: string
+       location: string
+       carrier: string
+       line_type: string
+
+/phoneVerification:
+  get:
+    queryParameters:
+      number: 
+        type: string
+        maxLength: 11
+        minLength: 10
+    description: For validating phone num
+    displayName: Validate Phone
+    protocols: [HTTP]
+    responses:
+      200:
+        body:
+          application/json:
+            type: apiresponse
+            example:
+              {
+                 "valid":true,
+                  "number":"14158586273",
+                  "local_format":"4158586273",
+                  "international_format":"+14158586273",
+                  "country_prefix":"+1",
+                  "country_code":"US",
+                  "country_name":"United States of America",
+                  "location":"Novato",
+                  "carrier":"AT&T Mobility LLC",
+                  "line_type":"mobile"
+              }
+      400:
+        body:
+          application/json:
+            properties:
+              message: string
+            example:
+              {message: "API key is invalid"}
+
+      403:
+        body:
+          application/json:
+            properties:
+              message: string
+            example:
+              {message: "Resource does not exist"}
+      
+      210: 
+        body:
+          application/json:
+            properties:
+              message: string
+            example:
+              {message: "A phone number is not provided"}
+
+      
+
