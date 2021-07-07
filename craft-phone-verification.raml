@@ -60,23 +60,23 @@ types:
             properties:
               message: string
             example:
-              {message: "API key is invalid"}
+              {message: "Bad request"}
 
-      403:
+      401:
         body:
           application/json:
             properties:
               message: string
             example:
-              {message: "Resource does not exist"}
+              {message: "Unauthorized"}
       
-      210: 
+      500: 
         body:
           application/json:
             properties:
               message: string
             example:
-              {message: "A phone number is not provided"}
+              {message: "Internal server error"}
 
       
 
