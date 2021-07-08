@@ -1,5 +1,6 @@
 #%RAML 1.0
 title: phone-verification
+version: 2.0.0
 securitySchemes:
   basic:
     type: Basic Authentication
@@ -28,11 +29,6 @@ types:
 
 /phoneVerification:
   get:
-    queryParameters:
-      number: 
-        type: string
-        maxLength: 11
-        minLength: 10
     description: For validating phone num
     displayName: Validate Phone
     protocols: [HTTP]
