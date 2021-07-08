@@ -1,0 +1,54 @@
+#%RAML 1.0
+title: CraftSoft-Exp-FAS
+version: 2.0.1
+securitySchemes:
+  basic:
+    type: Basic Authentication
+    displayName: Basic Authentication
+    description:  API only works with basic authentication
+description: This is a Fraud Alert Service API
+/customer:
+  post:
+    body:
+          application/json:
+            type: !include customerInfoDT.raml
+            example:
+                !include Example/customerInfoExample.json
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              {
+                "custid": 100
+              }
+      400:
+        body:
+          application/json:
+            properties:
+              message: string
+            example:
+              {message: "Bad request"}
+      401:
+        body:
+          application/json:
+            properties:
+              message: string
+            example:
+              {message: "Unauthorized"}
+      500: 
+        body:
+          application/json:
+            properties:
+              message: string
+            example:
+              {message: "Internal server error"}
+  /{custid}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include customerInfoDT.raml
+              example:
+                !include Example/customerInfoGetEx.json
